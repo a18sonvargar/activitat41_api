@@ -19,32 +19,28 @@ class PeliculaRepository extends ServiceEntityRepository
         parent::__construct($registry, Pelicula::class);
     }
 
-    // /**
-    //  * @return Pelicula[] Returns an array of Pelicula objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function guardar($nombre, $genero, $descripcion)
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $pelicula = new Pelicula();
+        $pelicula->setNombre($nombre)
+            ->setGenero($genero)
+            ->setDescripcion($descripcion);
+        $this->manager->persist($pelicula);
+        $this->manager->flush();
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Pelicula
+    public function eliminar(Pelicula $pelicula)
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $this->manager->remove($pelicula);
+        $this->manager->flush();
     }
-    */
+
+    public function actualizar(Pelicula $pelicula)
+    {
+        $this->manager->persist($pelicula);
+        $this->manager->flush();
+    }
+
+
+
 }
